@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://bltno84hr6q2b"]
+
+[ext_resource type="Script" uid="uid://ck5qpwo0qug4x" path="res://Scripts/level.gd" id="1_6phgx"]
+[ext_resource type="PackedScene" uid="uid://dg4fwlywsnc7k" path="res://Scenes/player.tscn" id="1_tumq0"]
+[ext_resource type="Texture2D" uid="uid://dbkd32g8dvfr8" path="res://Assets/Backgrounds/purple.png" id="2_8c0lf"]
+[ext_resource type="PackedScene" uid="uid://squs8qh47flj" path="res://Scenes/ui.tscn" id="3_6phgx"]
+[ext_resource type="AudioStream" uid="uid://s268wsk8glrj" path="res://Assets/SFXs/sfx_shieldDown.ogg" id="4_81xng"]
+[ext_resource type="AudioStream" uid="uid://m6nbgsy38lqm" path="res://Assets/SFXs/sfx_lose.ogg" id="5_wqkje"]
+[ext_resource type="AudioStream" uid="uid://ddxasscs7hu1u" path="res://Assets/Backsounds/play_backsound.mp3" id="7_8c0lf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k5f4k"]
+size = Vector2(1464, 62)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6phgx"]
+size = Vector2(115, 761)
+
+[node name="Level" type="Node2D" unique_id=1185026400]
+script = ExtResource("1_6phgx")
+
+[node name="MeteorSpawnTimer" type="Timer" parent="." unique_id=1214174363]
+autostart = true
+
+[node name="BG" type="Sprite2D" parent="." unique_id=545593837]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(579, 183.99997)
+scale = Vector2(5.375, 4)
+texture = ExtResource("2_8c0lf")
+
+[node name="Lasers" type="Node2D" parent="." unique_id=358182679]
+
+[node name="Player" parent="." unique_id=1992584812 instance=ExtResource("1_tumq0")]
+position = Vector2(578, 541)
+
+[node name="Meteors" type="Node2D" parent="." unique_id=762867837]
+
+[node name="Border" type="Node2D" parent="." unique_id=820174767]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Border" unique_id=2048295942]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/StaticBody2D" unique_id=1090180716]
+position = Vector2(563, -7)
+shape = SubResource("RectangleShape2D_k5f4k")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Border" unique_id=1561791126]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/StaticBody2D2" unique_id=977001699]
+position = Vector2(590, 673)
+shape = SubResource("RectangleShape2D_k5f4k")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Border" unique_id=1464011199]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/StaticBody2D3" unique_id=907592387]
+position = Vector2(-56, 377)
+shape = SubResource("RectangleShape2D_6phgx")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Border" unique_id=172518872]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/StaticBody2D4" unique_id=1107156124]
+position = Vector2(1211, 352)
+shape = SubResource("RectangleShape2D_6phgx")
+
+[node name="UI" parent="." unique_id=2104442918 instance=ExtResource("3_6phgx")]
+
+[node name="SFXs" type="Node2D" parent="." unique_id=480546342]
+
+[node name="on_hit_sfx" type="AudioStreamPlayer2D" parent="SFXs" unique_id=1651140473]
+stream = ExtResource("4_81xng")
+bus = &"SFX"
+
+[node name="on_death_sfx" type="AudioStreamPlayer2D" parent="SFXs" unique_id=369500012]
+stream = ExtResource("5_wqkje")
+bus = &"SFX"
+
+[node name="DeathTimer" type="Timer" parent="." unique_id=809245033]
+wait_time = 0.5
+
+[node name="backsound" type="AudioStreamPlayer2D" parent="." unique_id=1099166707]
+stream = ExtResource("7_8c0lf")
+autoplay = true
+bus = &"backsound"
+parameters/looping = true
+
+[connection signal="timeout" from="MeteorSpawnTimer" to="." method="_on_meteor_spawn_timer_timeout"]
+[connection signal="Laser" from="Player" to="." method="_on_player_laser"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

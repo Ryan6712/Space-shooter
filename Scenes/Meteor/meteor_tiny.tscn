@@ -1,0 +1,131 @@
+[gd_scene format=3 uid="uid://cpnypuiemqhjc"]
+
+[ext_resource type="Script" uid="uid://rjlskh7nxmke" path="res://Scripts/meteor.gd" id="1_usrti"]
+[ext_resource type="Texture2D" uid="uid://dng1um01dbvhe" path="res://Assets/Meteors/meteorBrown_tiny1.png" id="2_7chmo"]
+[ext_resource type="Texture2D" uid="uid://4gsbtaa3eklf" path="res://Assets/Meteors/meteorBrown_tiny2.png" id="3_ym8e8"]
+[ext_resource type="Texture2D" uid="uid://df5kbog8boegt" path="res://Assets/Meteors/meteorGrey_tiny1.png" id="4_pvqbl"]
+[ext_resource type="Texture2D" uid="uid://blojvvg5560p5" path="res://Assets/Meteors/meteorGrey_tiny2.png" id="5_76vps"]
+[ext_resource type="AudioStream" uid="uid://dpcmf6j8sg1e8" path="res://Assets/SFXs/explosion.ogg" id="6_7chmo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_usrti"]
+radius = 7.0
+
+[sub_resource type="Animation" id="Animation_rcov2"]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_wk3ga"]
+resource_name = "destroy"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7chmo"]
+_data = {
+&"RESET": SubResource("Animation_rcov2"),
+&"destroy": SubResource("Animation_wk3ga")
+}
+
+[node name="MeteorTiny" type="Area2D" unique_id=1184520571]
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("1_usrti")
+textureList = Array[Texture2D]([ExtResource("2_7chmo"), ExtResource("3_ym8e8"), ExtResource("4_pvqbl"), ExtResource("5_76vps")])
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=84051664]
+position = Vector2(-1, -1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=372245272]
+shape = SubResource("CircleShape2D_usrti")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1694133793]
+libraries/ = SubResource("AnimationLibrary_7chmo")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=625115100]
+stream = ExtResource("6_7chmo")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

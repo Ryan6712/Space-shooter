@@ -1,0 +1,120 @@
+[gd_scene format=3 uid="uid://4k26hxmhkbm"]
+
+[ext_resource type="Script" uid="uid://38ow1tk7fl1n" path="res://Scripts/main_menu.gd" id="1_28flt"]
+[ext_resource type="PackedScene" uid="uid://bltno84hr6q2b" path="res://Scenes/level.tscn" id="2_48xlc"]
+[ext_resource type="FontFile" uid="uid://bjauj45hioc82" path="res://Assets/Fonts/kenvector_future.ttf" id="3_1ehe0"]
+[ext_resource type="AudioStream" uid="uid://byigxmv7dqltn" path="res://Assets/Backsounds/main_menu_backsound.mp3" id="4_ce3w2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_28flt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_48xlc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1ehe0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ce3w2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n45e2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_opfnp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cp0ys"]
+
+[node name="MainMenu" type="Control" unique_id=2087286878]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_28flt")
+lavel_scenes = ExtResource("2_48xlc")
+
+[node name="BG" type="ColorRect" parent="." unique_id=824994605]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.22745098, 0.18039216, 0.24705882, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1665670310]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -222.5
+offset_right = 222.5
+offset_bottom = 88.0
+grow_horizontal = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1473112133]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1618075903]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1ehe0")
+theme_override_font_sizes/font_size = 90
+text = "Space-Shooter"
+
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer" unique_id=577566409]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1ehe0")
+theme_override_font_sizes/font_size = 24
+text = "Just dogde and shoot"
+horizontal_alignment = 1
+
+[node name="CenterContainer2" type="CenterContainer" parent="." unique_id=338378934]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -31.5
+offset_right = 45.0
+offset_bottom = 31.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="CenterContainer2" unique_id=9459882]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("3_1ehe0")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_28flt")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_48xlc")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_1ehe0")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_ce3w2")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_n45e2")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_opfnp")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_cp0ys")
+text = "Play"
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=646252806]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="MarginContainer" unique_id=1292250263]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1ehe0")
+theme_override_font_sizes/font_size = 21
+text = "Highest score : "
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1122838304]
+stream = ExtResource("4_ce3w2")
+autoplay = true
+bus = &"backsound"
+parameters/looping = true
+
+[connection signal="pressed" from="CenterContainer2/Button" to="." method="_on_button_pressed"]

@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://bkkxf20rxeqtr"]
+
+[ext_resource type="Script" uid="uid://cqkv4ct801yle" path="res://Scripts/game_over.gd" id="1_ojehl"]
+[ext_resource type="PackedScene" uid="uid://bltno84hr6q2b" path="res://Scenes/level.tscn" id="2_8fo1c"]
+[ext_resource type="PackedScene" uid="uid://4k26hxmhkbm" path="res://Scenes/main_menu.tscn" id="3_ek8ke"]
+[ext_resource type="FontFile" uid="uid://bjauj45hioc82" path="res://Assets/Fonts/kenvector_future.ttf" id="4_eoghk"]
+[ext_resource type="AudioStream" uid="uid://bmhpu1kypbncq" path="res://Assets/Backsounds/game_over_backsound.mp3" id="5_14u15"]
+
+[node name="GameOver" type="Control" unique_id=1261316815]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ojehl")
+lavel_scenes = ExtResource("2_8fo1c")
+menu_scenes = ExtResource("3_ek8ke")
+
+[node name="BG" type="ColorRect" parent="." unique_id=1038419870]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.22745098, 0.18039216, 0.24705882, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=33085979]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -367.0
+offset_top = -87.5
+offset_right = 367.0
+offset_bottom = 87.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=2014342311]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1367110859]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_eoghk")
+theme_override_font_sizes/font_size = 64
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer" unique_id=419893958]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_eoghk")
+text = "Your Score : "
+horizontal_alignment = 1
+
+[node name="CenterContainer2" type="CenterContainer" parent="." unique_id=1064623933]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -128.5
+offset_top = -40.0
+offset_right = 128.5
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer2" unique_id=1240202873]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CenterContainer2/VBoxContainer" unique_id=1790962973]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_eoghk")
+theme_override_font_sizes/font_size = 24
+text = "PRESS R TO PLAY AGAIN"
+
+[node name="Label2" type="Label" parent="CenterContainer2/VBoxContainer" unique_id=1925346134]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_eoghk")
+theme_override_font_sizes/font_size = 24
+text = "PRESS ESC TO MAIN MENU"
+
+[node name="backsound" type="AudioStreamPlayer2D" parent="." unique_id=1913348909]
+stream = ExtResource("5_14u15")
+pitch_scale = 1.55
+autoplay = true
+bus = &"backsound"
+parameters/looping = true
