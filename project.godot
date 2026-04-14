@@ -23,6 +23,12 @@ buses/default_bus_layout="uid://dgebd72c855ky"
 
 Global="*uid://cc0g3oj74djfm"
 
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="viewport"
+
 [global_group]
 
 ui=""

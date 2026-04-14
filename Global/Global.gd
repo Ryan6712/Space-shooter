@@ -5,6 +5,7 @@ var score := 0
 var save_file_path := "user://save/"
 var save_score := "score.tres"
 
+var rnd := RandomNumberGenerator.new()
 
 func reset():
 	score = 0

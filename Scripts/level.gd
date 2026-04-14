@@ -8,18 +8,19 @@ var MeteorScenes: Dictionary[String, PackedScene] = {
 }
 
 var HP := 3
+var MAX_HP := 10
 
 
 @onready var meteor_spawn: Timer = $MeteorSpawnTimer
 
-
 func _ready() -> void:
 	get_tree().call_group('ui', 'set_health', HP)
 	Global.reset()
+	
 
 func _process(_delta: float) -> void:
 	if Global.time_elipse < 30:
-		meteor_spawn.set_wait_time(1)
+		meteor_spawn.set_wait_time(2)
 	elif Global.time_elipse < 60:
 		meteor_spawn.set_wait_time(0.8)
 	elif Global.time_elipse < 80:
@@ -28,13 +29,16 @@ func _process(_delta: float) -> void:
 		meteor_spawn.set_wait_time(0.3)
 	else:
 		meteor_spawn.set_wait_time(0.2)
-		
+	
+	
+	
 
 func _on_meteor_spawn_timer_timeout() -> void:
 	var randomSize: PackedScene = MeteorScenes.values().pick_random()
 	var meteor:  = randomSize.instantiate()
 	$Meteors.add_child(meteor)
 	meteor.connect("collision", _on_meteor_collision)
+	meteor.connect("heal", heal_meteor)
 
 
 func _on_meteor_collision():
@@ -46,7 +50,15 @@ func _on_meteor_collision():
 		$SFXs/on_death_sfx.play()
 		$DeathTimer.start()
 		
-	
+
+func heal_meteor():
+	if  HP < MAX_HP:
+		HP += 1
+		$SFXs/on_heal_sfx.play()
+		get_tree().call_group('ui', 'set_health', HP)
+	else :
+		print("can heal because max")
+
 func _on_player_laser(pos: Variant) -> void:
 	var laserScenes: PackedScene = load("res://Scenes/laser.tscn")
 	var laser := laserScenes.instantiate()

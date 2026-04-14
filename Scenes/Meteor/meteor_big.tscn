@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://drhxfst61bn2r" path="res://Assets/Meteors/meteorGrey_big3.png" id="8_xqxxq"]
 [ext_resource type="Texture2D" uid="uid://be4naxpv0lb5x" path="res://Assets/Meteors/meteorGrey_big4.png" id="9_3s2ma"]
 [ext_resource type="AudioStream" uid="uid://dpcmf6j8sg1e8" path="res://Assets/SFXs/explosion.ogg" id="10_j60jm"]
+[ext_resource type="Texture2D" uid="uid://dl5l23f8ab6iv" path="res://Assets/Particels/heal_particel.png" id="11_rcov2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hx18t"]
 radius = 43.0
@@ -113,6 +114,14 @@ _data = {
 &"destroy": SubResource("Animation_wk3ga")
 }
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wk3ga"]
+emission_shape = 2
+emission_sphere_radius = 50.37
+inherit_velocity_ratio = 0.211
+spread = 70.0
+gravity = Vector3(0, -90, 0)
+scale_min = 0.5
+
 [node name="MeteorBig" type="Area2D" unique_id=1749554118]
 collision_layer = 2
 collision_mask = 9
@@ -131,6 +140,12 @@ libraries/ = SubResource("AnimationLibrary_7kn52")
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1557125083]
 stream = ExtResource("10_j60jm")
 bus = &"SFX"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=582520548]
+amount = 15
+texture = ExtResource("11_rcov2")
+collision_base_size = 0.0
+process_material = SubResource("ParticleProcessMaterial_wk3ga")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

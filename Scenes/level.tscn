@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://s268wsk8glrj" path="res://Assets/SFXs/sfx_shieldDown.ogg" id="4_81xng"]
 [ext_resource type="AudioStream" uid="uid://m6nbgsy38lqm" path="res://Assets/SFXs/sfx_lose.ogg" id="5_wqkje"]
 [ext_resource type="AudioStream" uid="uid://ddxasscs7hu1u" path="res://Assets/Backsounds/play_backsound.mp3" id="7_8c0lf"]
+[ext_resource type="AudioStream" uid="uid://dh7uch4506obp" path="res://Assets/SFXs/sfx_shieldUp.ogg" id="7_754fn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k5f4k"]
 size = Vector2(1464, 62)
@@ -23,8 +24,8 @@ autostart = true
 [node name="BG" type="Sprite2D" parent="." unique_id=545593837]
 texture_filter = 1
 texture_repeat = 1
-position = Vector2(579, 183.99997)
-scale = Vector2(5.375, 4)
+position = Vector2(564.99994, 336.49997)
+scale = Vector2(5.7499995, 3.4492188)
 texture = ExtResource("2_8c0lf")
 
 [node name="Lasers" type="Node2D" parent="." unique_id=358182679]
@@ -74,6 +75,10 @@ bus = &"SFX"
 
 [node name="on_death_sfx" type="AudioStreamPlayer2D" parent="SFXs" unique_id=369500012]
 stream = ExtResource("5_wqkje")
+bus = &"SFX"
+
+[node name="on_heal_sfx" type="AudioStreamPlayer2D" parent="SFXs" unique_id=213240025]
+stream = ExtResource("7_754fn")
 bus = &"SFX"
 
 [node name="DeathTimer" type="Timer" parent="." unique_id=809245033]
