@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://m6nbgsy38lqm" path="res://Assets/SFXs/sfx_lose.ogg" id="5_wqkje"]
 [ext_resource type="AudioStream" uid="uid://ddxasscs7hu1u" path="res://Assets/Backsounds/play_backsound.mp3" id="7_8c0lf"]
 [ext_resource type="AudioStream" uid="uid://dh7uch4506obp" path="res://Assets/SFXs/sfx_shieldUp.ogg" id="7_754fn"]
+[ext_resource type="PackedScene" uid="uid://c74elwxyuo3gs" path="res://Scenes/pause_menu.tscn" id="9_bvt00"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k5f4k"]
 size = Vector2(1464, 62)
@@ -89,6 +90,8 @@ stream = ExtResource("7_8c0lf")
 autoplay = true
 bus = &"backsound"
 parameters/looping = true
+
+[node name="Pause_menu" parent="." unique_id=1058339049 instance=ExtResource("9_bvt00")]
 
 [connection signal="timeout" from="MeteorSpawnTimer" to="." method="_on_meteor_spawn_timer_timeout"]
 [connection signal="Laser" from="Player" to="." method="_on_player_laser"]

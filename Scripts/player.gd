@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-@export var SPEED := 250
+@export var SPEED := 350
 @export var laser_cooldown_timer:float = 0.8
 
 var can_shoot:bool = true

@@ -19,6 +19,10 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cp0ys"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yhxw7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_trj04"]
+
 [node name="MainMenu" type="Control" unique_id=2087286878]
 layout_mode = 3
 anchors_preset = 15
@@ -111,6 +115,26 @@ theme_override_fonts/font = ExtResource("3_1ehe0")
 theme_override_font_sizes/font_size = 21
 text = "Highest score : "
 
+[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=1615576070]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="ExitButton" type="Button" parent="MarginContainer2" unique_id=1021412010]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1ehe0")
+theme_override_font_sizes/font_size = 21
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yhxw7")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_trj04")
+text = "Exit"
+
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1122838304]
 stream = ExtResource("4_ce3w2")
 autoplay = true
@@ -118,3 +142,4 @@ bus = &"backsound"
 parameters/looping = true
 
 [connection signal="pressed" from="CenterContainer2/Button" to="." method="_on_button_pressed"]
+[connection signal="button_down" from="MarginContainer2/ExitButton" to="." method="_on_exit_button_button_down"]

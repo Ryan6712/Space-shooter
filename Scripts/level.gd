@@ -14,13 +14,17 @@ var MAX_HP := 10
 @onready var meteor_spawn: Timer = $MeteorSpawnTimer
 
 func _ready() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	get_tree().call_group('ui', 'set_health', HP)
 	Global.reset()
 	
 
+func _exit_tree() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
 func _process(_delta: float) -> void:
 	if Global.time_elipse < 30:
-		meteor_spawn.set_wait_time(2)
+		meteor_spawn.set_wait_time(1)
 	elif Global.time_elipse < 60:
 		meteor_spawn.set_wait_time(0.8)
 	elif Global.time_elipse < 80:
@@ -29,6 +33,8 @@ func _process(_delta: float) -> void:
 		meteor_spawn.set_wait_time(0.3)
 	else:
 		meteor_spawn.set_wait_time(0.2)
+	
+	
 	
 	
 	
