@@ -63,7 +63,7 @@ shape = SubResource("RectangleShape2D_6phgx")
 collision_layer = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Border/StaticBody2D4" unique_id=1107156124]
-position = Vector2(1211, 352)
+position = Vector2(1340, 350)
 shape = SubResource("RectangleShape2D_6phgx")
 
 [node name="UI" parent="." unique_id=2104442918 instance=ExtResource("3_6phgx")]
