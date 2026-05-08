@@ -43,6 +43,6 @@ metadata/_edit_use_anchors_ = true
 [node name="Label" type="Label" parent="MarginContainer3" unique_id=1584091291]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_qdvrb")
-text = "Timer : "
+text = "00:00"
 
 [connection signal="timeout" from="TimerScore" to="." method="_on_timer_score_timeout"]

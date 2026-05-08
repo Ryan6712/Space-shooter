@@ -36,9 +36,6 @@ func _process(_delta: float) -> void:
 	
 	
 	
-	
-	
-
 func _on_meteor_spawn_timer_timeout() -> void:
 	var randomSize: PackedScene = MeteorScenes.values().pick_random()
 	var meteor:  = randomSize.instantiate()
@@ -58,12 +55,12 @@ func _on_meteor_collision():
 		
 
 func heal_meteor():
-	if  HP < MAX_HP:
+	if  HP <= MAX_HP:
 		HP += 1
 		$SFXs/on_heal_sfx.play()
 		get_tree().call_group('ui', 'set_health', HP)
 	else :
-		print("can heal because max")
+		print("can't heal because max")
 
 func _on_player_laser(pos: Variant) -> void:
 	var laserScenes: PackedScene = load("res://Scenes/laser.tscn")

@@ -7,9 +7,11 @@ var score: Score = Score.new()
 var save_path := Global.save_file_path + Global.save_score
 
 func _ready() -> void:
+	
 	$CenterContainer/VBoxContainer/Label2.text = $CenterContainer/VBoxContainer/Label2.text + str(Global.score)
 	score = ResourceLoader.load(Global.save_file_path + Global.save_score, "", ResourceLoader.CACHE_MODE_IGNORE)
 	verify_save_directory(Global.save_file_path)
+	
 	if Global.score > score.Highest_score:
 		score.Highest_score = Global.score
 		ResourceSaver.save(score, save_path)
@@ -26,3 +28,11 @@ func _process(_delta: float) -> void:
 	if  Input.is_action_just_pressed("exit"):
 		get_tree().change_scene_to_packed(menu_scenes)
 		
+
+
+func _on_button_exit_button_down() -> void:
+	get_tree().change_scene_to_packed(menu_scenes)
+
+
+func _on_button_play_again_button_down() -> void:
+	get_tree().change_scene_to_packed(lavel_scenes)

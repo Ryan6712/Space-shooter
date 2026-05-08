@@ -40,12 +40,13 @@ func _on_body_entered(_body: Node2D) -> void:
 	collision.emit()
 
 func _on_area_entered(area: Area2D) -> void:
+	Global.score += 10
+	
 	if is_can_heal == true:
 		heal.emit()
 		
 	area.queue_free()
 	destroy_animation.play("destroy")
-	Global.score += 10
 
 
 func heal_chances():

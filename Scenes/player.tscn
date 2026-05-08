@@ -12,7 +12,7 @@ script = ExtResource("1_cvnsp")
 texture = ExtResource("2_6t5aa")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=867067099]
-polygon = PackedVector2Array(41, 0, 45, -6, 50, -5, 46, 24, 13, 27, 6, 38, -8, 38, -15, 27, -46, 24, -49, -6, -44, -7, -35, 1, -13, -12, -8, -37, 8, -37, 12, -13, 36, 1)
+polygon = PackedVector2Array(41, 3, 44, -2, 48, -2, 45, 22, 42, 18, 37, 22, 12, 25, 6, 36, -7, 35, -13, 24, -34, 22, -41, 17, -45, 22, -48, -2, -45, -4, -40, 3, -33, 2, -10, -11, -5, -35, 7, -35, 10, -11, 35, 4)
 
 [node name="LaserStartPoint" type="Marker2D" parent="." unique_id=154848645]
 position = Vector2(0, -50)
