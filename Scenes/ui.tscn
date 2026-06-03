@@ -45,4 +45,20 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("2_qdvrb")
 text = "00:00"
 
+[node name="MarginContainer4" type="MarginContainer" parent="." unique_id=53981056]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -220.0
+offset_top = -14.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer4" unique_id=1963440943]
+layout_mode = 2
+theme_override_constants/separation = 5
+alignment = 2
+
 [connection signal="timeout" from="TimerScore" to="." method="_on_timer_score_timeout"]

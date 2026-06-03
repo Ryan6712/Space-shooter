@@ -19,6 +19,9 @@ size = Vector2(115, 761)
 [node name="Level" type="Node2D" unique_id=1185026400]
 script = ExtResource("1_6phgx")
 
+[node name="BuffSpawnTimer" type="Timer" parent="." unique_id=390082304]
+autostart = true
+
 [node name="MeteorSpawnTimer" type="Timer" parent="." unique_id=1214174363]
 autostart = true
 
@@ -30,6 +33,8 @@ scale = Vector2(5.7499995, 3.4492188)
 texture = ExtResource("2_8c0lf")
 
 [node name="Lasers" type="Node2D" parent="." unique_id=358182679]
+
+[node name="Buffs" type="Node2D" parent="." unique_id=1448693504]
 
 [node name="Meteors" type="Node2D" parent="." unique_id=762867837]
 
@@ -93,6 +98,7 @@ parameters/looping = true
 
 [node name="Pause_menu" parent="." unique_id=1058339049 instance=ExtResource("9_bvt00")]
 
+[connection signal="timeout" from="BuffSpawnTimer" to="." method="_on_buff_spawn_timer_timeout"]
 [connection signal="timeout" from="MeteorSpawnTimer" to="." method="_on_meteor_spawn_timer_timeout"]
 [connection signal="Laser" from="Player" to="." method="_on_player_laser"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]

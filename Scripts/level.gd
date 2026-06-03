@@ -6,17 +6,23 @@ var MeteorScenes: Dictionary[String, PackedScene] = {
 	"small" : load("res://Scenes/Meteor/meteor_small.tscn"),
 	"tiny" : load("res://Scenes/Meteor/meteor_tiny.tscn")
 }
+var BuffScenes: PackedScene = load("res://Scenes/Buffs.tscn")
 
 var HP := 3
 var MAX_HP := 10
+var SHIELD := 0
 
-
+@onready var buff_spawn_timer: Timer = $BuffSpawnTimer
 @onready var meteor_spawn: Timer = $MeteorSpawnTimer
+
+
+signal speed_up
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	get_tree().call_group('ui', 'set_health', HP)
 	Global.reset()
+	buff_spawn_timer.wait_time = _set_buff_timer()
 	
 
 func _exit_tree() -> void:
@@ -36,6 +42,7 @@ func _process(_delta: float) -> void:
 	
 	
 	
+	
 func _on_meteor_spawn_timer_timeout() -> void:
 	var randomSize: PackedScene = MeteorScenes.values().pick_random()
 	var meteor:  = randomSize.instantiate()
@@ -45,7 +52,11 @@ func _on_meteor_spawn_timer_timeout() -> void:
 
 
 func _on_meteor_collision():
-	HP -= 1
+	if SHIELD > 0:
+		SHIELD -= 1
+	else :
+		HP -= 1
+		
 	$SFXs/on_hit_sfx.play()
 	get_tree().call_group('ui', 'set_health', HP)
 	if HP <= 0:
@@ -72,3 +83,24 @@ func _on_player_laser(pos: Variant) -> void:
 func _on_death_timer_timeout() -> void:
 	Engine.time_scale = 1.0
 	get_tree().call_deferred("change_scene_to_file", "res://Scenes/game_over.tscn")
+
+func _set_buff_timer() -> float:
+	var time = Global.rnd.randf_range(1.0, 3.0)
+	return time
+
+func _on_buff_spawn_timer_timeout() -> void:
+	var buffScenes = BuffScenes.instantiate()
+	$Buffs.add_child(buffScenes)
+	buffScenes.connect("buff", _handle_buff)
+	buff_spawn_timer.wait_time = _set_buff_timer()
+
+func _handle_buff(buff_type: String) -> void:
+	match buff_type:
+		"max_health":
+			print("buff masuk")
+			MAX_HP += 2
+		"shield":
+			SHIELD += 2
+		"speed":
+			print("masuk")
+			speed_up.emit()

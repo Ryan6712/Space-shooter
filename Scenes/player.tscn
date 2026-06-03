@@ -22,7 +22,24 @@ gizmo_extents = 114.4
 wait_time = 10.0
 autostart = true
 
+[node name="SpeedBuffTimer" type="Timer" parent="." unique_id=129840580]
+
 [node name="LaserSound" type="AudioStreamPlayer2D" parent="." unique_id=1355725824]
 stream = ExtResource("3_6t5aa")
 
+[node name="Control" type="Control" parent="." unique_id=64912534]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -39.0
+offset_right = 62.0
+offset_bottom = -29.0
+
+[node name="BuffIcons" type="HBoxContainer" parent="Control" unique_id=1863366750]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 56.0
+offset_bottom = 11.0
+theme_override_constants/separation = 5
+
 [connection signal="timeout" from="LaserCooldown" to="." method="_on_laser_cooldown_timeout"]
+[connection signal="timeout" from="SpeedBuffTimer" to="." method="_on_speed_buff_timer_timeout"]
