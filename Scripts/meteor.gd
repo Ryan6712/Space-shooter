@@ -8,8 +8,12 @@ var ROTATION_SPEED: int
 var DIRECTION_x: float
 var is_can_heal: bool
 
-signal collision
-signal heal
+var damage: float
+var heal_value: float= 1.0
+var size: String
+
+signal collision(damage)
+signal heal(value)
 
 func _ready() -> void:
 	var width := int(get_viewport().get_visible_rect().size[0])
@@ -24,11 +28,27 @@ func _ready() -> void:
 	DIRECTION_x = Global.rnd.randf_range(-1, 1)
 	heal_chances()
 	
+	var path = scene_file_path
+	size = path.get_file().get_basename()
+	
 	if is_can_heal == false:
 		$GPUParticles2D.emitting = false
 	else :
 		$GPUParticles2D.emitting = true
 
+	match size:
+		"meteor_big":
+			damage = 8
+			heal_value = 3
+		"meteor_med":
+			damage = 6
+			heal_value = 2
+		"meteor_small":
+			damage = 4
+		"meteor_tiny":
+			damage = 1
+			
+	print(size, damage, heal_value)
 	await get_tree().create_timer(5.0).timeout
 	queue_free()
 
@@ -37,13 +57,13 @@ func _process(delta: float) -> void:
 	rotation_degrees += ROTATION_SPEED * delta
 	
 func _on_body_entered(_body: Node2D) -> void:
-	collision.emit()
+	collision.emit(damage)
 
 func _on_area_entered(area: Area2D) -> void:
 	Global.score += 10
 	
 	if is_can_heal == true:
-		heal.emit()
+		heal.emit(heal_value)
 		
 	area.queue_free()
 	destroy_animation.play("destroy")

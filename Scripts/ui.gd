@@ -6,14 +6,14 @@ var second: int = 0
 var minute: int = 0
 
 func set_health(amount):
-	for child in $"MarginContainer2/HP Bar".get_children():
+	for child in $"HP/HP Bar".get_children():
 		child.queue_free()
 	
 	for i in amount:
 		var text_react = TextureRect.new()
 		text_react.texture = HpImage
 		text_react.expand_mode = 	TextureRect.EXPAND_FIT_WIDTH
-		$"MarginContainer2/HP Bar".add_child(text_react)
+		$"HP/HP Bar".add_child(text_react)
 
 
 func _on_timer_score_timeout() -> void:
@@ -35,5 +35,5 @@ func _on_timer_score_timeout() -> void:
 	
 	
 	
-	$MarginContainer3/Label.text = "%02d:%02d" % [minute, second]
-	$MarginContainer/Score.text = str(Global.score)
+	$Time/Label.text = "%02d:%02d" % [minute, second]
+	$Score/Score.text = str(Global.score)

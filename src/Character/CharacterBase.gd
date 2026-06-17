@@ -36,8 +36,5 @@ func take_damage(amount: float) -> void:
 		die()
 
 func die() -> void:
-	if is_alive and HP > 0:
-		return
-	
 	is_alive = false
 	died.emit()

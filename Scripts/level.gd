@@ -1,28 +1,33 @@
 extends Node2D
 
+@onready var buff_spawn_timer: Timer = $BuffSpawnTimer
+@onready var meteor_spawn: Timer = $MeteorSpawnTimer
+@onready var player: CharacterBody2D = $Player
+
 var MeteorScenes: Dictionary[String, PackedScene] = {
 	"big" : load("res://Scenes/Meteor/meteor_big.tscn"),
 	"med" : load("res://Scenes/Meteor/meteor_med.tscn"),
 	"small" : load("res://Scenes/Meteor/meteor_small.tscn"),
 	"tiny" : load("res://Scenes/Meteor/meteor_tiny.tscn")
 }
+
 var BuffScenes: PackedScene = load("res://Scenes/Buffs.tscn")
+var stats = PlayerBase.new(20.0, 20.0, 500)
 
-var HP := 3
-var MAX_HP := 10
-var SHIELD := 0
-
-@onready var buff_spawn_timer: Timer = $BuffSpawnTimer
-@onready var meteor_spawn: Timer = $MeteorSpawnTimer
-
+var HP = stats.HP
+var MAX_HP = stats.max_HP
 
 signal speed_up
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
 	get_tree().call_group('ui', 'set_health', HP)
 	Global.reset()
 	buff_spawn_timer.wait_time = _set_buff_timer()
+	
+	stats.HP_change.connect(on_hp_change)
+	stats.died.connect(on_die)
 	
 
 func _exit_tree() -> void:
@@ -51,27 +56,18 @@ func _on_meteor_spawn_timer_timeout() -> void:
 	meteor.connect("heal", heal_meteor)
 
 
-func _on_meteor_collision():
-	if SHIELD > 0:
-		SHIELD -= 1
-	else :
-		HP -= 1
-		
+func _on_meteor_collision(damage):
+	stats.take_damage(damage)
 	$SFXs/on_hit_sfx.play()
-	get_tree().call_group('ui', 'set_health', HP)
-	if HP <= 0:
-		Engine.time_scale = 0.5
-		$SFXs/on_death_sfx.play()
-		$DeathTimer.start()
-		
 
-func heal_meteor():
-	if  HP <= MAX_HP:
-		HP += 1
-		$SFXs/on_heal_sfx.play()
-		get_tree().call_group('ui', 'set_health', HP)
-	else :
-		print("can't heal because max")
+
+func heal_meteor(amount):
+	stats.heal(amount)
+
+func on_die() -> void:
+	Engine.time_scale = 0.5
+	$SFXs/on_death_sfx.play()
+	$DeathTimer.start()
 
 func _on_player_laser(pos: Variant) -> void:
 	var laserScenes: PackedScene = load("res://Scenes/laser.tscn")
@@ -79,6 +75,8 @@ func _on_player_laser(pos: Variant) -> void:
 	$Lasers.add_child(laser)
 	laser.position = pos
 
+func on_hp_change(updated_HP, _max_HP) -> void:
+	get_tree().call_group('ui', 'set_health', updated_HP)
 
 func _on_death_timer_timeout() -> void:
 	Engine.time_scale = 1.0
@@ -97,10 +95,10 @@ func _on_buff_spawn_timer_timeout() -> void:
 func _handle_buff(buff_type: String) -> void:
 	match buff_type:
 		"max_health":
-			print("buff masuk")
+			#print("buff masuk")
 			MAX_HP += 2
-		"shield":
-			SHIELD += 2
+		#"shield":
+			#SHIELD += 2
 		"speed":
-			print("masuk")
+			#print("masuk")
 			speed_up.emit()

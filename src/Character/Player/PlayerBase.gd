@@ -5,6 +5,7 @@ var max_ammo: int = 20
 var current_ammo: int = 20
 var can_shoot: bool
 var level: int = 1
+
 signal ammo_change(current_ammo: int, max_ammo: int)
 
 func shoot() -> void:
