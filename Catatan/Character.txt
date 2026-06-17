@@ -1,0 +1,18 @@
+Character
+|
+|_/Resources
+	|
+	|_ CharacterBase.tres
+	|_ PlayerBase.tres
+	|_ EnemyBase.tres
+|
+|_/Player
+	|
+	|_ Player.gd ( player logic )
+	|_ PlayerBase.gd ( player base stats extend dari CharacterBase )
+|
+|_/Enemy
+	|
+	|_ ( OTW )
+|
+|_CharacterBase.gd
