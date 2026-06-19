@@ -18,7 +18,6 @@ func _ready() -> void:
 	position = Vector2(random_x, random_y)
 	buffName = buff_icon.texture.resource_path.get_file().get_basename()
 	
-	print(buffName)
 	
 	SPEED = Global.rnd.randi_range(200, 500)
 	DIRECTION_x = Global.rnd.randf_range(-1, 1)

@@ -47,8 +47,7 @@ func _ready() -> void:
 			damage = 4
 		"meteor_tiny":
 			damage = 1
-			
-	print(size, damage, heal_value)
+
 	await get_tree().create_timer(5.0).timeout
 	queue_free()
 

@@ -7,11 +7,11 @@ func _ready() -> void:
 
 
 func _unhandled_input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("exit") and get_tree().paused == true:
+	if Input.is_action_just_pressed("play") and get_tree().paused == true:
 		get_tree().paused = false
 		get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
 		
-	if Input.is_action_just_pressed("play"):
+	if Input.is_action_just_pressed("exit"):
 		_toggle_pause()
 
 func _toggle_pause():

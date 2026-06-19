@@ -3,6 +3,7 @@ extends Node2D
 @onready var buff_spawn_timer: Timer = $BuffSpawnTimer
 @onready var meteor_spawn: Timer = $MeteorSpawnTimer
 @onready var player: CharacterBody2D = $Player
+#@onready var ui: CanvasLayer = $UI
 
 var MeteorScenes: Dictionary[String, PackedScene] = {
 	"big" : load("res://Scenes/Meteor/meteor_big.tscn"),
@@ -12,7 +13,7 @@ var MeteorScenes: Dictionary[String, PackedScene] = {
 }
 
 var BuffScenes: PackedScene = load("res://Scenes/Buffs.tscn")
-var stats = PlayerBase.new(20.0, 20.0, 500)
+var stats = PlayerBase.new(100.0, 100.0, 500)
 
 var HP = stats.HP
 var MAX_HP = stats.max_HP
@@ -20,18 +21,18 @@ var MAX_HP = stats.max_HP
 signal speed_up
 
 func _ready() -> void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
-	get_tree().call_group('ui', 'set_health', HP)
+	get_tree().call_group('ui', 'set_health', HP, MAX_HP)
 	Global.reset()
 	buff_spawn_timer.wait_time = _set_buff_timer()
-	
+
 	stats.HP_change.connect(on_hp_change)
 	stats.died.connect(on_die)
 	
 
-func _exit_tree() -> void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+#func _exit_tree() -> void:
+	#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func _process(_delta: float) -> void:
 	if Global.time_elipse < 30:
@@ -73,10 +74,11 @@ func _on_player_laser(pos: Variant) -> void:
 	var laserScenes: PackedScene = load("res://Scenes/laser.tscn")
 	var laser := laserScenes.instantiate()
 	$Lasers.add_child(laser)
-	laser.position = pos
+	laser.global_transform = pos
+	
 
-func on_hp_change(updated_HP, _max_HP) -> void:
-	get_tree().call_group('ui', 'set_health', updated_HP)
+func on_hp_change(updated_HP, max_HP) -> void:
+	get_tree().call_group('ui', 'set_health', updated_HP, max_HP)
 
 func _on_death_timer_timeout() -> void:
 	Engine.time_scale = 1.0
